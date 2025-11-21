@@ -1,20 +1,22 @@
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-
-export default function How(){
+export default function HowItWorks({ lang = 'en' }) {
+  const t = (en, hi) => (lang === 'hi' ? hi : en)
+  const steps = [
+    t('Crop selection', 'फसल चयन'),
+    t('AI analysis (soil, weather, disease)', 'एआई विश्लेषण (मिट्टी, मौसम, रोग)'),
+    t('Personalized advice', 'व्यक्तिगत सलाह'),
+    t('Photo upload (optional)', 'फोटो अपलोड (वैकल्पिक)'),
+    t('Auto alerts', 'ऑटो अलर्ट'),
+  ]
   return (
-    <div>
-      <Navbar />
-      <main className="max-w-4xl mx-auto px-4 py-12 prose">
-        <h1>How It Works</h1>
-        <ol>
-          <li>Open the demo and allow location for weather.</li>
-          <li>Use camera or gallery to upload a leaf image.</li>
-          <li>Check mandi prices by choosing state and district.</li>
-          <li>Enter crop and soil type for fertilizer advice.</li>
-        </ol>
-      </main>
-      <Footer />
+    <div className="max-w-6xl mx-auto px-4 py-16">
+      <ol className="flex flex-col md:flex-row gap-6">
+        {steps.map((s, i) => (
+          <li key={i} className="flex-1 p-6 bg-white rounded-lg border shadow-sm">
+            <div className="text-2xl font-bold text-green-700">{i + 1}</div>
+            <div className="mt-2">{s}</div>
+          </li>
+        ))}
+      </ol>
     </div>
   )
 }

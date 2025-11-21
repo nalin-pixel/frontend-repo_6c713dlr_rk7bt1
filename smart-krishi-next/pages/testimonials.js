@@ -1,27 +1,17 @@
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-
-export default function Testimonials(){
+export default function Testimonials({ lang = 'en' }) {
+  const t = (en, hi) => (lang === 'hi' ? hi : en)
   const items = [
-    { name: 'Ramesh (MP)', text: 'Smart Krishi se fasal ka rog jaldi pata chalta hai.' },
-    { name: 'Sita (UP)', text: 'Mandi bhaav aur mausam dono ek jagah milte hain.' },
-    { name: 'Karan (RJ)', text: 'Hindi interface bahut asaan hai.' },
+    { name: 'Ramesh', place: 'UP', text: t('Saved ₹3000 by disease detection.', 'रोग पहचान से ₹3000 बचे।') },
+    { name: 'Sita', place: 'MP', text: t('Timely weather alert protected crops.', 'समय पर मौसम अलर्ट से फसल बची।') },
   ]
   return (
-    <div>
-      <Navbar />
-      <main className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-semibold">Testimonials</h1>
-        <div className="mt-8 grid gap-6">
-          {items.map((t)=> (
-            <div key={t.name} className="p-6 border rounded-lg">
-              <div className="font-medium">{t.name}</div>
-              <p className="text-slate-600 mt-2 text-sm">“{t.text}”</p>
-            </div>
-          ))}
+    <div className="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-6">
+      {items.map((x, i) => (
+        <div key={i} className="p-6 bg-white rounded-lg border">
+          <div className="font-semibold">{x.name}, {x.place}</div>
+          <p className="text-gray-700 mt-2">“{x.text}”</p>
         </div>
-      </main>
-      <Footer />
+      ))}
     </div>
   )
 }

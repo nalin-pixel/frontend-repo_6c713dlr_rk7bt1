@@ -1,32 +1,22 @@
-import formidable from 'formidable'
-
 export const config = {
   api: {
     bodyParser: false,
   },
 }
 
-export default async function handler(req, res){
-  if (req.method !== 'POST') return res.status(405).json({ error: 'method_not_allowed' })
+export default async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
-  const form = formidable({ multiples: false })
-  form.parse(req, async (err, fields, files) => {
-    if (err) return res.status(400).json({ error: 'parse_error', details: String(err) })
+  // Parse multipart form data
+  const chunks = []
+  req.on('data', (c) => chunks.push(c))
+  await new Promise((resolve) => req.on('end', resolve))
+  // In demo, we skip actual parsing and return a mock
 
-    const crop = fields.crop || 'Unknown'
-    const file = files.image
-
-    if (!file) return res.status(400).json({ error: 'no_image' })
-
-    // Demo static response; integrate ML model or external API later
-    const demoResponse = {
-      crop,
-      disease: 'Leaf Rust',
-      probability: 0.87,
-      pesticide: 'Propiconazole 25% EC',
-      tips: 'Spray in early morning or evening, ensure proper spacing and sanitation.'
-    }
-
-    return res.status(200).json(demoResponse)
+  return res.status(200).json({
+    disease: 'Leaf Rust',
+    probability: 92,
+    pesticide: 'Fungicide ABC',
+    tips: 'Apply in morning, irrigate moderately',
   })
 }

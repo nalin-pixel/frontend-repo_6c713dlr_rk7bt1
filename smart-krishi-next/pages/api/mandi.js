@@ -1,30 +1,10 @@
-const demoData = {
-  MP: {
-    Bhopal: [
-      { crop: 'Wheat', price: 2100 },
-      { crop: 'Soybean', price: 4800 },
-      { crop: 'Gram', price: 5400 },
-    ],
-    Indore: [
-      { crop: 'Wheat', price: 2200 },
-      { crop: 'Maize', price: 1950 },
-      { crop: 'Soybean', price: 5000 },
-    ]
-  },
-  UP: {
-    Lucknow: [
-      { crop: 'Wheat', price: 2000 },
-      { crop: 'Rice', price: 2600 },
-    ],
-    Varanasi: [
-      { crop: 'Wheat', price: 2050 },
-      { crop: 'Paddy', price: 2400 },
-    ]
-  }
-}
-
-export default function handler(req, res){
+export default async function handler(req, res) {
   const { state = 'MP', district = 'Bhopal' } = req.query
-  const items = demoData?.[state]?.[district] || []
-  res.status(200).json(items)
+  // Demo dataset; replace with live eNAM or other source
+  const data = [
+    { crop: 'Wheat', price: 2140, unit: '₹/qtl', state, district },
+    { crop: 'Soyabean', price: 4400, unit: '₹/qtl', state, district },
+    { crop: 'Maize', price: 1860, unit: '₹/qtl', state, district },
+  ]
+  res.status(200).json(data)
 }
